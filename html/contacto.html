@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../css/contacto.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../js/contacto.js" defer></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css">
+</head>
+
+<body>
+
+
+
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">Archive</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="../html/galeria.html">galeria</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../html/contacto.html"><span class="txt-1">contacto</span></a>
+          </li>
+        </ul>
+
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search">
+          <button class="btn btn-outline-success">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <div class="section section2" id="section2">
+
+
+
+    <div class="contenedor-contacto">
+
+      <div class="datos" id="part2">
+        <div class="info-obra-1">
+          <h1 class="prisse12">Información</h1>
+          <p class="descripcion-bloque-9">Por favor, deje sus datos de contacto para que podamos
+            contactarle
+            sobre su compra.</p>
+          <div class="detalle-bloque-7">Primero recibirá un correo electrónico para confirmar.</div>
+        </div>
+
+
+
+
+
+        <div class="formulario-datos">
+          <div class="campo-nombre">
+            <input class="entrada-texto" type="text" id="name" placeholder="Nombre">
+            <span id="nameError" class="mensaje-error-1"></span>
+          </div>
+          <div class="campo-nombre">
+            <input class="entrada-texto" type="text" id="surname" placeholder="Apellido">
+            <span id="surnameError" class="mensaje-error-2"></span>
+          </div>
+          <div class="campo-nombre">
+            <input class="entrada-texto" type="text" id="phone" placeholder="Teléfono">
+            <span id="phoneError" class="mensaje-error-3"></span>
+          </div>
+          <div class="campo-nombre">
+            <input class="entrada-texto" type="text" id="email" placeholder="Correo electrónico">
+            <span id="emailError" class="mensaje-error-4"></span>
+          </div>
+          <div class="campo-nombre">
+            <input class="entrada-texto" type="text" id="comment" placeholder="Comentario">
+            <span id="commentError" class="mensaje-error-4"></span>
+          </div>
+
+        </div>
+
+        <div class="botones">
+          <p class="descripciAon-bloque-453">Al enviar esta solicitud, usted acepta ser contactado por
+            Archive
+            Automotive en relación con su consulta y acepta nuestros Términos de Servicio y Política de
+            Privacidad.</p>
+          <button class="button1" onclick="clearForm(this)">Eliminar</button>
+          <button class="button1" onclick="submitForm(this)">Enviar</button>
+        </div>
+      </div>
+
+
+    </div>
+    <div id="map"></div>
+
+
+
+    <script>
+
+
+      const cityCenter = [39.4699, -0.3763];
+
+
+      const fallbackOrigin = [39.4671, -0.3838];
+
+      var map = L.map('map').setView(cityCenter, 14);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      let routingControl = null;
+
+      function drawRoute(originLatLng, originLabel) {
+        if (routingControl) {
+          map.removeControl(routingControl);
+        }
+
+        routingControl = L.Routing.control({
+          waypoints: [
+            L.latLng(originLatLng[0], originLatLng[1]),
+            L.latLng(cityCenter[0], cityCenter[1])
+          ],
+          routeWhileDragging: false,
+          draggableWaypoints: false,
+          addWaypoints: false,
+          show: false,
+          createMarker: function (i, wp) {
+            return L.marker(wp.latLng).bindPopup(
+              i === 0 ? originLabel : 'Archive Valencia'
+            );
+          }
+        }).addTo(map);
+      }
+
+      function showUserRoute(position) {
+        const { latitude, longitude } = position.coords;
+        drawRoute([latitude, longitude], 'Tu ubicación actual');
+      }
+
+      function showFallbackRoute(error) {
+        console.warn('Geolocalización no disponible o denegada:', error.message);
+        drawRoute(fallbackOrigin, 'Masterd');
+      }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          showUserRoute,
+          showFallbackRoute,
+          {
+            enableHighAccuracy: true,
+            timeout: 8000,
+            maximumAge: 0
+          }
+        );
+      } else {
+        console.warn('Este navegador no soporta geolocalización.');
+        drawRoute(fallbackOrigin, 'Archive');
+      }
+    </script>
+  </div>
+
+  <section class="section section3">
+    <div class="container-fluid px-5">
+      <footer class="py-5">
+        <div class="row">
+          <div class="col-6 col-md-2 mb-3">
+            <h2 class="h5">Mapa del sitio</h2>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="../index.html" class="nav-link p-0 text-body-secondary">Inicio</a>
+              </li>
+              <li class="nav-item mb-2"><a href="../html/galeria.html" class="nav-link p-0 text-body-secondary">Galeria</a>
+              </li>
+              <li class="nav-item mb-2"><a href="../html/contacto.html" class="nav-link p-0 text-body-secondary">contacto</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2 mb-3">
+            <h2 class="h5">Redes sociales</h2>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="https://www.youtube.com" class="nav-link p-0 text-body-secondary"><i
+                    class="bi bi-youtube"></i> YouTube</a></li>
+              <li class="nav-item mb-2"><a href="https://x.com" class="nav-link p-0 text-body-secondary"><i
+                    class="bi bi-twitter"></i> Twitter</a></li>
+              <li class="nav-item mb-2"><a href="https://www.tiktok.com" class="nav-link p-0 text-body-secondary"><i
+                    class="bi bi-tiktok"></i> TikTok</a></li>
+              <li class="nav-item mb-2"><a href="https://www.instagram.com" class="nav-link p-0 text-body-secondary"><i
+                    class="bi bi-instagram"></i> Instagram</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h2 class="h5">Suscríbete a nuestro boletín</h2>
+              <p>Una breve lectura mensual sobre las novedades y lo que viene.</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2"> <label for="newsletter1"
+                  class="visually-hidden">Email address</label> <input id="newsletter1" type="email"
+                  class="form-control" placeholder="Correo electrónico"> <button class="btn btn-primary"
+                  type="button">Suscríbete</button> </div>
+            </form>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+          <p>© 2025 Company, Inc. Todos los derechos reservados. Este sitio es una demostración ficticia <br>
+            todo el contenido y la marca son solo para fines ilustrativos y no representan un negocio real.
+          </p>
+
+        </div>
+      </footer>
+    </div>
+  </section>
+
+
+</body>
+
+</html>
