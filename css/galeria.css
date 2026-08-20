@@ -2,7 +2,10 @@
 
 
 
-
+.px-5 {
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
+}
 
 
 
@@ -119,7 +122,17 @@ body {
   height: auto;
 }
 
+@media (max-width: 576px) {
+  .section2 {
+    padding-right: 0;
+    padding-left: 0;
+  }
 
+  .row img {
+    height: 240px;
+    border-radius: 0;
+  }
+}
 
 
 
