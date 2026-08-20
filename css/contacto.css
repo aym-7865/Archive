@@ -7,17 +7,99 @@
 
 
 
+.section1 {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  display: flex;
+padding-left: 3vh;
+padding-right: 3vh;
+justify-content: center;
+}
+
+
+
+@media (max-width: 768px) {
+  .section1 {
+    display: none;
+  }
+
+
+}
+
+
+.photo-1{
+  display: flex;
+  overflow: clip;
+  height: 695px;
+  width: 1322px;
+}
+
+.photo-2{
+  overflow: clip;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 .section2 {
   display: flex;
-  min-height: 100vh;
-  margin: 4vh;
+  padding: 2vh;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+ 
+  
+
+
+.section2 {
+  display: flex;
+  padding: 2vh;
+  align-items: center;
+  justify-content: center;
+  margin-top: 86px;
+}
 }
 
 
 
+
+
+
+
+
+
+
+
+
+
+.section3 {
+  display: flex;
+  min-height: 100vh;
+  margin: 4vh;
+  align-items: center;
+  justify-content: center;
+  gap: 53px;
+}
 
 
 
@@ -28,22 +110,26 @@
 
 .contenedor-contacto {
   flex: 1;
-  display: flex;
+  display: contents;
   align-items: center;
 }
 
 #map {
-  height: 996px;
-  width: 72%;
+  height: 581px;
+  width: 35%;
 }
 
 @media (max-width: 768px) {
-  .section2 {
+  .section3 {
     flex-direction: column;
     margin: 2vh;
     min-height: auto;
   }
+  
+  
 
+  
+  
   .contenedor-contacto {
     flex-direction: column;
     width: 100%;
@@ -70,7 +156,9 @@
 
   .entrada-texto {
     height: 42px;
+ width: 100% !important;
   }
+  
 
   .button1 {
     height: 40px;
@@ -116,24 +204,9 @@
   font-weight: 300;
 }
 
-.descripcion-bloque-9 {
-  font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
-  margin-bottom: 6px;
-}
 
-.detalle-bloque-7 {
-  font-size: 0.9rem;
-  font-family: "Montserrat", sans-serif;
-  height: 60px;
-  width: 100%;
-  background-color: #000;
-  color: white;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2vh;
-}
+
+
 
 .formulario-datos {
   display: flex;
@@ -151,7 +224,7 @@
 }
 
 .entrada-texto {
-  width: 100%;
+  width: 110%;
   height: 47.8px;
   border: none;
   background-color: #ededed;
@@ -180,10 +253,6 @@
   gap: 27px;
 }
 
-.descripciAon-bloque-453 {
-  font-size: 0.9rem;
-  font-family: "Montserrat", sans-serif;
-}
 
 .button1 {
   color: #000000;
@@ -208,7 +277,18 @@
 
 
 
-.section3 {
+
+
+
+
+
+
+
+
+
+
+
+.section4 {
   display: flex;
   flex-direction: row;
   color: #000000;
